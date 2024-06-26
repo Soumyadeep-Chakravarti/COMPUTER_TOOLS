@@ -1,4 +1,12 @@
-from converters import pdf_to_ppt_converter, ppt_to_pdf_converter, pdf_to_docx_converter, docx_to_pdf_converter, pdf_to_xlsx_converter, xlsx_to_pdf_converter
+from converters import (
+    pdf_to_ppt_converter,
+    ppt_to_pdf_converter,
+    pdf_to_docx_converter,
+    docx_to_pdf_converter,
+    pdf_to_xlsx_converter,
+    xlsx_to_pdf_converter,
+    code_to_pdf_converter,
+)
 
 def main():
     print("Select an option:")
@@ -8,6 +16,7 @@ def main():
     print("4. Convert Word document to PDF")
     print("5. Convert PDF to Excel (XLSX)")
     print("6. Convert Excel (XLSX) to PDF")
+    print("7. Convert Source Code to PDF")
     choice = input("Enter your choice (1-6): ")
     
     if choice == '1':
@@ -34,8 +43,12 @@ def main():
         xlsx_path = input("Enter the path to the Excel (XLSX) file: ")
         pdf_path = input("Enter the desired path for the PDF file: ")
         xlsx_to_pdf_converter.convert(xlsx_path, pdf_path)
+    elif choice == '7':
+        source_code_path = input("Enter the path to the Source Code file: ")
+        pdf_path = input("Enter the desired path for the PDF file: ")
+        code_to_pdf_converter.convert_to_pdf(source_code_path, pdf_path)
     else:
-        print("Invalid choice. Please select 1-6.")
+        print("Invalid choice. Please select 1-7.")
 
 if __name__ == "__main__":
     main()
