@@ -17,3 +17,5 @@ def convert(pdf_path, xlsx_path):
     # Save dataframe to Excel
     final_df.to_excel(xlsx_path, index=False, header=False)
     print(f'PDF converted to Excel (XLSX) and saved as {xlsx_path}')
+
+
