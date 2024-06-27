@@ -1,4 +1,4 @@
-from converters import (
+from converters.file_converters import (
     pdf_to_ppt_converter,
     ppt_to_pdf_converter,
     pdf_to_docx_converter,
@@ -7,48 +7,60 @@ from converters import (
     xlsx_to_pdf_converter,
     code_to_pdf_converter,
 )
+from converters.img_converters import (
+    pdf_to_bmp,
+    pdf_to_gif,
+    pdf_to_jpeg,
+    pdf_to_png,
+    pdf_to_tiff,
+    pdf_to_webp,
+)
+import logging
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('pdf_conversion.log'),
+        logging.StreamHandler()
+    ]
+)
 
 def main():
+    conversions = {
+        '1': ('PDF to PowerPoint', pdf_to_ppt_converter.convert),
+        '2': ('PowerPoint to PDF', ppt_to_pdf_converter.convert),
+        '3': ('PDF to Word document', pdf_to_docx_converter.convert),
+        '4': ('Word document to PDF', docx_to_pdf_converter.convert),
+        '5': ('PDF to Excel (XLSX)', pdf_to_xlsx_converter.convert),
+        '6': ('Excel (XLSX) to PDF', xlsx_to_pdf_converter.convert),
+        '7': ('Source Code to PDF', code_to_pdf_converter.convert_to_pdf),
+        '8': ('PDF to JPEG', pdf_to_jpeg.convert_pdf_to_jpeg),
+        '9': ('PDF to PNG', pdf_to_png.convert_pdf_to_png),
+        '10': ('PDF to GIF', pdf_to_gif.convert_pdf_to_gif),
+        '11': ('PDF to TIFF', pdf_to_tiff.convert_pdf_to_tiff),
+        '12': ('PDF to BMP', pdf_to_bmp.convert_pdf_to_bmp),
+        '13': ('PDF to WebP', pdf_to_webp.convert_pdf_to_webp)
+    }
+
     print("Select an option:")
-    print("1. Convert PDF to PowerPoint")
-    print("2. Convert PowerPoint to PDF")
-    print("3. Convert PDF to Word document")
-    print("4. Convert Word document to PDF")
-    print("5. Convert PDF to Excel (XLSX)")
-    print("6. Convert Excel (XLSX) to PDF")
-    print("7. Convert Source Code to PDF")
-    choice = input("Enter your choice (1-6): ")
-    
-    if choice == '1':
+    for key, (description, _) in conversions.items():
+        print(f"{key}. {description}")
+
+    choice = input("Enter your choice (1-13): ")
+
+    if choice in conversions:
         pdf_path = input("Enter the path to the PDF file: ")
-        ppt_path = input("Enter the desired path for the PowerPoint file: ")
-        pdf_to_ppt_converter.convert(pdf_path, ppt_path)
-    elif choice == '2':
-        ppt_path = input("Enter the path to the PowerPoint file: ")
-        pdf_path = input("Enter the desired path for the PDF file: ")
-        ppt_to_pdf_converter.convert(ppt_path, pdf_path)
-    elif choice == '3':
-        pdf_path = input("Enter the path to the PDF file: ")
-        docx_path = input("Enter the desired path for the Word document file: ")
-        pdf_to_docx_converter.convert(pdf_path, docx_path)
-    elif choice == '4':
-        docx_path = input("Enter the path to the Word document file: ")
-        pdf_path = input("Enter the desired path for the PDF file: ")
-        docx_to_pdf_converter.convert(docx_path, pdf_path)
-    elif choice == '5':
-        pdf_path = input("Enter the path to the PDF file: ")
-        xlsx_path = input("Enter the desired path for the Excel (XLSX) file: ")
-        pdf_to_xlsx_converter.convert(pdf_path, xlsx_path)
-    elif choice == '6':
-        xlsx_path = input("Enter the path to the Excel (XLSX) file: ")
-        pdf_path = input("Enter the desired path for the PDF file: ")
-        xlsx_to_pdf_converter.convert(xlsx_path, pdf_path)
-    elif choice == '7':
-        source_code_path = input("Enter the path to the Source Code file: ")
-        pdf_path = input("Enter the desired path for the PDF file: ")
-        code_to_pdf_converter.convert_to_pdf(source_code_path, pdf_path)
+
+        if choice in {'1', '2', '3', '4', '5', '6', '7','8','9','10','11','12','13'}:
+            output_path = input("Enter the desired path for the output file: ")
+            conversions[choice][1](pdf_path, output_path)
+        else:
+            output_dir = input("Enter the directory to save the images: ")
+            conversions[choice][1](pdf_path, output_dir)
     else:
-        print("Invalid choice. Please select 1-7.")
+        print("Invalid choice. Please select 1-13.")
 
 if __name__ == "__main__":
     main()
