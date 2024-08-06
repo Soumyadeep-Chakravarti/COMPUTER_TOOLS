@@ -14,6 +14,7 @@ from converters.img_converters import (
     pdf_to_png,
     pdf_to_tiff,
     pdf_to_webp,
+    imgs_to_pdf
 )
 import logging
 
@@ -40,7 +41,8 @@ conversions = {
     '10': ('PDF to GIF', pdf_to_gif.convert_pdf_to_gif),
     '11': ('PDF to TIFF', pdf_to_tiff.convert_pdf_to_tiff),
     '12': ('PDF to BMP', pdf_to_bmp.convert_pdf_to_bmp),
-    '13': ('PDF to WebP', pdf_to_webp.convert_pdf_to_webp)
+    '13': ('PDF to WebP', pdf_to_webp.convert_pdf_to_webp),
+    '14': ("Create PDF from Images", imgs_to_pdf.create_pdf_with_images),
 }
 
 def perform_conversion(choice, pdf_path, output_path):

@@ -12,13 +12,29 @@ class PDFConverterApp:
         tk.Label(self.root, text="Select an option:").pack(pady=10)
         self.option_var = tk.StringVar(value='1')
         for key, (description, _) in conversions.items():
-            tk.Radiobutton(self.root, text=description, variable=self.option_var, value=key).pack(anchor='w')
+            Radiobutton = tk.Radiobutton(self.root,
+                                         text=description, 
+                                         variable=self.option_var, 
+                                         value=key)
+            Radiobutton.pack(anchor='w')
 
-        tk.Button(self.root, text="Select File", command=self.select_file).pack(pady=5)
-        tk.Button(self.root, text="Select Output Path", command=self.select_output_path).pack(pady=5)
-        tk.Button(self.root, text="Convert", command=self.convert).pack(pady=10)
-
-        self.pdf_path = None
+        Select_file_button = tk.Button(self.root, 
+                                       text="Select File", 
+                                       command=self.select_file)
+        
+        Select_output_button = tk.Button(self.root,
+                                         text="Select Output Path",
+                                         command=self.select_output_path)
+        
+        Convert_button = tk.Button(self.root, 
+                                   text="Convert", 
+                                   command=self.convert)
+        
+        Select_file_button.pack(pady=5)
+        Select_output_button.pack(pady=5)
+        Convert_button.pack(pady=10)
+        
+        self.file_path = None
         self.output_path = None
 
     def select_file(self):
@@ -34,7 +50,7 @@ class PDFConverterApp:
     def convert(self):
         choice = self.option_var.get()
         if self.pdf_path and self.output_path:
-            success, message = perform_conversion(choice, self.pdf_path, self.output_path)
+            success, message = perform_conversion(choice, self.file_path, self.output_path)
             if success:
                 messagebox.showinfo("Success", message)
             else:
