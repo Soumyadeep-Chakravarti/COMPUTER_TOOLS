@@ -14,17 +14,17 @@ class PDFConverterApp:
         for key, (description, _) in conversions.items():
             tk.Radiobutton(self.root, text=description, variable=self.option_var, value=key).pack(anchor='w')
 
-        tk.Button(self.root, text="Select PDF File", command=self.select_pdf_file).pack(pady=5)
+        tk.Button(self.root, text="Select File", command=self.select_file).pack(pady=5)
         tk.Button(self.root, text="Select Output Path", command=self.select_output_path).pack(pady=5)
         tk.Button(self.root, text="Convert", command=self.convert).pack(pady=10)
 
         self.pdf_path = None
         self.output_path = None
 
-    def select_pdf_file(self):
-        self.pdf_path = filedialog.askopenfilename(title="Select PDF File", filetypes=[("PDF files", "*.pdf")])
+    def select_file(self):
+        self.pdf_path = filedialog.askopenfilename(title="Select File")
         if self.pdf_path:
-            print(f"Selected PDF file: {self.pdf_path}")
+            print(f"Selected file: {self.file_path}")
 
     def select_output_path(self):
         self.output_path = filedialog.askdirectory(title="Select Output Directory")
@@ -40,7 +40,7 @@ class PDFConverterApp:
             else:
                 messagebox.showerror("Error", message)
         else:
-            messagebox.showwarning("Warning", "Please select both a PDF file and an output path.")
+            messagebox.showwarning("Warning", "Please select both an input file and an output path.")
 
 def main():
     root = tk.Tk()
