@@ -16,6 +16,7 @@ class PDFConverterApp:
                                          text=description, 
                                          variable=self.option_var, 
                                          value=key)
+            
             Radiobutton.pack(anchor='w')
 
         Select_file_button = tk.Button(self.root, 
